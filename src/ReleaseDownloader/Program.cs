@@ -9,7 +9,7 @@
 
     internal class Program
     {
-        private static Task Main(string[] args) => new Program().Run(args);
+        private static void Main(string[] args) => new Program().Run(args).Wait();
 
         private HttpClient client;
 
@@ -51,7 +51,7 @@
             using var file = File.OpenWrite(asset.Name);
             var requestMessage = new HttpRequestMessage
             {
-                Headers = {{"Accept", asset.ContentType}},
+                Headers = {{"Accept", "application/octet-stream"}},
                 RequestUri = new Uri($"https://api.github.com/repos/{repo}/releases/assets/{asset.Id}"),
                 Method = HttpMethod.Get
             };
